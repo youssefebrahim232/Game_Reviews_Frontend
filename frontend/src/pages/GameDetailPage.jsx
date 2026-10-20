@@ -42,11 +42,28 @@ export default function GameDetailPage() {
         ]);
 
         if (isMounted) {
-          setGame(gameRes.data);
-          setPlatforms(platformsRes.data || []);
-          if (platformsRes.data && platformsRes.data.length > 0) {
-            setSelectedPlatformId(platformsRes.data[0].id);
-            setNewPlatformId(platformsRes.data[0].id);
+          const gameData = gameRes.data;
+          const allPlatforms = platformsRes.data || [];
+
+          // Match allowed platforms from gameData.platforms
+          const allowedPlatformNames = (gameData?.platforms || []).map((p) =>
+            (typeof p === 'string' ? p : p?.name || String(p)).trim().toLowerCase()
+          );
+
+          const allowedPlatforms = allPlatforms.filter(
+            (plat) =>
+              allowedPlatformNames.includes(plat.name?.trim().toLowerCase()) ||
+              (gameData?.platforms || []).includes(plat.id)
+          );
+
+          setGame(gameData);
+          setPlatforms(allowedPlatforms);
+          if (allowedPlatforms.length > 0) {
+            setSelectedPlatformId(allowedPlatforms[0].id);
+            setNewPlatformId(allowedPlatforms[0].id);
+          } else {
+            setSelectedPlatformId(null);
+            setNewPlatformId('');
           }
         }
       } catch (err) {
@@ -210,7 +227,7 @@ export default function GameDetailPage() {
               <div className={styles.tagGroup}>
                 {game.platforms.map((p, idx) => (
                   <span key={idx} className={styles.platformTag}>
-                    {p}
+                    {typeof p === 'object' ? p.name : p}
                   </span>
                 ))}
               </div>
@@ -251,15 +268,21 @@ export default function GameDetailPage() {
           </h2>
 
           <div className={styles.platformTabs}>
-            {platforms.map((plat) => (
-              <button
-                key={plat.id}
-                className={`${styles.tabBtn} ${selectedPlatformId === plat.id ? styles.tabBtnActive : ''}`}
-                onClick={() => setSelectedPlatformId(plat.id)}
-              >
-                {plat.name}
-              </button>
-            ))}
+            {platforms.length > 0 ? (
+              platforms.map((plat) => (
+                <button
+                  key={plat.id}
+                  className={`${styles.tabBtn} ${selectedPlatformId === plat.id ? styles.tabBtnActive : ''}`}
+                  onClick={() => setSelectedPlatformId(plat.id)}
+                >
+                  {plat.name}
+                </button>
+              ))
+            ) : (
+              <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                No platforms available for this game
+              </span>
+            )}
           </div>
         </div>
 
@@ -277,9 +300,10 @@ export default function GameDetailPage() {
                     value={newPlatformId}
                     onChange={(e) => setNewPlatformId(e.target.value)}
                     required
+                    disabled={platforms.length === 0}
                   >
                     <option value="" disabled>
-                      Choose a platform
+                      {platforms.length === 0 ? 'No platforms available' : 'Choose a platform'}
                     </option>
                     {platforms.map((plat) => (
                       <option key={plat.id} value={plat.id}>
@@ -320,7 +344,11 @@ export default function GameDetailPage() {
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary" disabled={submittingReview}>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={submittingReview || platforms.length === 0}
+              >
                 <Send size={16} /> {submittingReview ? 'Submitting...' : 'Post Review'}
               </button>
             </form>
@@ -347,7 +375,11 @@ export default function GameDetailPage() {
           </div>
         ) : (
           <div className={styles.noReviews}>
-            <p>No reviews yet for this platform. Be the first to review it!</p>
+            <p>
+              {platforms.length === 0
+                ? 'No platforms available for this game yet.'
+                : 'No reviews yet for this platform. Be the first to review it!'}
+            </p>
           </div>
         )}
 
