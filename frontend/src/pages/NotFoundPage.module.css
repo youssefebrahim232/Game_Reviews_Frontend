@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(70vh - var(--navbar-height));
+  text-align: center;
+  padding: var(--space-2xl);
+}
+
+.code {
+  font-size: 6rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: var(--space-md);
+  letter-spacing: -0.05em;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: var(--space-xs);
+}
+
+.desc {
+  color: var(--text-secondary);
+  max-width: 440px;
+  margin-bottom: var(--space-xl);
+}

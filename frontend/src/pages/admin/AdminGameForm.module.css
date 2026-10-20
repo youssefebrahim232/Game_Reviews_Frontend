@@ -1,0 +1,130 @@
+.formCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  box-shadow: var(--shadow-md);
+  max-width: 800px;
+  width: 100%;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: var(--space-xs);
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xl);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-md);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formGroup label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.checkboxGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: 4px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--transition);
+}
+
+.chip:hover {
+  border-color: var(--accent);
+}
+
+.chipSelected {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.posterUploadArea {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+  padding: var(--space-lg);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-elevated);
+  transition: border-color var(--transition);
+}
+
+.posterUploadArea:hover {
+  border-color: var(--accent);
+}
+
+.posterPreview {
+  width: 160px;
+  height: 213px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.fileInput {
+  flex: 1;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-lg);
+}
+
+@media (max-width: 650px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .posterUploadArea {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .posterPreview {
+    width: 120px;
+    height: 160px;
+  }
+}

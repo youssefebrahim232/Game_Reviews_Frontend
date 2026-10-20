@@ -1,0 +1,27 @@
+.container {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.star {
+  display: flex;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.filled {
+  color: var(--rating-star);
+}
+
+.empty {
+  color: var(--rating-star-empty);
+}
+
+.interactive {
+  cursor: pointer;
+}
+
+.interactive:hover {
+  transform: scale(1.2);
+  color: var(--rating-star);
+}

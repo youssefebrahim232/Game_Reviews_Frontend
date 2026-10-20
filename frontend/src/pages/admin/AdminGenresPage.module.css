@@ -1,0 +1,64 @@
+.header {
+  margin-bottom: var(--space-xl);
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  margin-top: var(--space-xs);
+}
+
+.addCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-2xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.addTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+}
+
+.addForm {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.inputGroup {
+  flex: 1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-md);
+}
+
+.genreCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.genreName {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.genreId {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
