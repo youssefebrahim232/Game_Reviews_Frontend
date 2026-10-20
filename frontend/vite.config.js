@@ -6,5 +6,15 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
+    proxy: {
+      '/api': {
+        target: 'http://gamereviews.runasp.net',
+        changeOrigin: true,
+      },
+      '/Uploads': {
+        target: 'http://gamereviews.runasp.net',
+        changeOrigin: true,
+      },
+    },
   },
 });

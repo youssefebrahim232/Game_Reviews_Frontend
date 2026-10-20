@@ -1,9 +1,11 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://gamereviews.runasp.net';
+// If VITE_API_BASE_URL is explicitly set, use it; otherwise use relative path ''
+// which is proxied by Vercel in production (vercel.json) and Vite in development (vite.config.js)
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 const api = axios.create({
-  baseURL: `${API_BASE_URL}/api`,
+  baseURL: API_BASE_URL ? `${API_BASE_URL}/api` : '/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -36,6 +38,10 @@ api.interceptors.response.use(
 
 export const getImageUrl = (url) => {
   if (!url) return null;
+  // If image URL is from the insecure HTTP backend, strip domain so it proxies securely over HTTPS
+  if (url.startsWith('http://gamereviews.runasp.net')) {
+    return url.replace('http://gamereviews.runasp.net', '');
+  }
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
   return `${API_BASE_URL}${url.startsWith('/') ? '' : '/'}${url}`;
 };
